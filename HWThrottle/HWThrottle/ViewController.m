@@ -7,12 +7,11 @@
 
 #import "ViewController.h"
 #import "HWThrottle.h"
+#import "HWThrottleTestVC.h"
 
 @interface ViewController ()
 
-@property (nonatomic, strong) UIButton *button;
-@property (nonatomic, strong) NSMutableArray *colorArray;
-@property (nonatomic, strong) HWThrottle *changeColorThrottle;
+@property (nonatomic, strong) UIButton *nextPageButton;
 
 @end
 
@@ -20,55 +19,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.button];
+    [self.view addSubview:self.nextPageButton];
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    [self.button setFrame:CGRectMake(0, 0, 100, 30)];
-    self.button.center = self.view.center;
+    [self.nextPageButton setFrame:CGRectMake(0, 0, 100, 30)];
+    self.nextPageButton.center = self.view.center;
 }
 
-- (UIButton *)button {
-    if (!_button) {
-        _button = [UIButton buttonWithType:UIButtonTypeCustom];
-        _button.backgroundColor = [UIColor grayColor];
-        [_button setTitle:@"CHANGE" forState:UIControlStateNormal];
-        [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_button setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-        _button.titleLabel.font = [UIFont systemFontOfSize:17];
-        _button.clipsToBounds = YES;
-        _button.layer.cornerRadius = 10;
-        [_button addTarget:self action:@selector(changeBackgroundColorThrottle) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)nextPageButton {
+    if (!_nextPageButton) {
+        _nextPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextPageButton.backgroundColor = [UIColor colorWithRed:65 / 255.0 green:162 / 255.0 blue:192 / 255.0 alpha:1];
+        [_nextPageButton setTitle:@"Next" forState:UIControlStateNormal];
+        [_nextPageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_nextPageButton setTitleColor:[UIColor colorWithRed:65 / 255.0 green:162 / 255.0 blue:192 / 255.0 alpha:1] forState:UIControlStateHighlighted];
+        _nextPageButton.titleLabel.font = [UIFont systemFontOfSize:17];
+        _nextPageButton.clipsToBounds = YES;
+        _nextPageButton.layer.cornerRadius = 10;
+        [_nextPageButton addTarget:self action:@selector(goToNextPage) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _button;
+    return _nextPageButton;
 }
 
-- (void)changeBackgroundColorThrottle {
-    if (!self.changeColorThrottle) {
-        self.changeColorThrottle = [[HWThrottle alloc] initWithThrottleMode:HWThrottleModeDebounce
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
-            [self changeBackgroundColor];
-        }];
-    }
-    [self.changeColorThrottle call];
-}
-
-- (void)changeBackgroundColor {
-    self.view.backgroundColor = self.colorArray.firstObject;
-}
-
-- (NSMutableArray *)colorArray {
-    if (!_colorArray) {
-        _colorArray = [NSMutableArray array];
-        _colorArray = @[[UIColor cyanColor], [UIColor systemPinkColor], [UIColor yellowColor]].mutableCopy;
-    }
-    UIColor *removedColor = _colorArray.lastObject;
-    [_colorArray removeLastObject];
-    [_colorArray insertObject:removedColor atIndex:0];
-    return _colorArray;
+- (void)goToNextPage {
+    HWThrottleTestVC *vc = [[HWThrottleTestVC alloc] init];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 @end

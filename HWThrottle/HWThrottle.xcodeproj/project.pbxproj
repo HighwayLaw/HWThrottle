@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640664BE25E0AC9A00D50C24 /* HWThrottleTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */; };
+		6406657E25E0F4A600D50C24 /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */; };
 		64B64DCA25DF61C30099640F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DC925DF61C30099640F /* AppDelegate.m */; };
 		64B64DCD25DF61C30099640F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DCC25DF61C30099640F /* SceneDelegate.m */; };
 		64B64DD025DF61C30099640F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DCF25DF61C30099640F /* ViewController.m */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		640664BC25E0AC9900D50C24 /* HWThrottleTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HWThrottleTestVC.h; sourceTree = "<group>"; };
+		640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWThrottleTestVC.m; sourceTree = "<group>"; };
+		6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
+		6406657D25E0F4A600D50C24 /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
 		64B64DC525DF61C30099640F /* HWThrottle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWThrottle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B64DC825DF61C30099640F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64B64DC925DF61C30099640F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -64,6 +70,8 @@
 		64B64DC725DF61C30099640F /* HWThrottle */ = {
 			isa = PBXGroup;
 			children = (
+				6406657D25E0F4A600D50C24 /* UIView+LayoutHelper.h */,
+				6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */,
 				64B64DE225DF61DB0099640F /* HWThrottle.h */,
 				64B64DE325DF61DB0099640F /* HWThrottle.m */,
 				64B64DC825DF61C30099640F /* AppDelegate.h */,
@@ -77,6 +85,8 @@
 				64B64DD625DF61C30099640F /* LaunchScreen.storyboard */,
 				64B64DD925DF61C30099640F /* Info.plist */,
 				64B64DDA25DF61C30099640F /* main.m */,
+				640664BC25E0AC9900D50C24 /* HWThrottleTestVC.h */,
+				640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */,
 			);
 			path = HWThrottle;
 			sourceTree = "<group>";
@@ -151,9 +161,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				64B64DD025DF61C30099640F /* ViewController.m in Sources */,
+				640664BE25E0AC9A00D50C24 /* HWThrottleTestVC.m in Sources */,
 				64B64DCA25DF61C30099640F /* AppDelegate.m in Sources */,
 				64B64DDB25DF61C30099640F /* main.m in Sources */,
 				64B64DCD25DF61C30099640F /* SceneDelegate.m in Sources */,
+				6406657E25E0F4A600D50C24 /* UIView+LayoutHelper.m in Sources */,
 				64B64DE425DF61DB0099640F /* HWThrottle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
