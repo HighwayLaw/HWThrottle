@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		640664BE25E0AC9A00D50C24 /* HWThrottleTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */; };
 		6406657E25E0F4A600D50C24 /* UIView+LayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */; };
+		6406658A25E4DB0300D50C24 /* HWThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6406658625E4DB0300D50C24 /* HWThrottle.m */; };
+		6406658B25E4DB0300D50C24 /* HWDebounce.m in Sources */ = {isa = PBXBuildFile; fileRef = 6406658825E4DB0300D50C24 /* HWDebounce.m */; };
+		6406658F25E4FC0200D50C24 /* HWDebounceTestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6406658E25E4FC0200D50C24 /* HWDebounceTestVC.m */; };
 		64B64DCA25DF61C30099640F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DC925DF61C30099640F /* AppDelegate.m */; };
 		64B64DCD25DF61C30099640F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DCC25DF61C30099640F /* SceneDelegate.m */; };
 		64B64DD025DF61C30099640F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DCF25DF61C30099640F /* ViewController.m */; };
@@ -16,7 +19,6 @@
 		64B64DD525DF61C30099640F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64B64DD425DF61C30099640F /* Assets.xcassets */; };
 		64B64DD825DF61C30099640F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B64DD625DF61C30099640F /* LaunchScreen.storyboard */; };
 		64B64DDB25DF61C30099640F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DDA25DF61C30099640F /* main.m */; };
-		64B64DE425DF61DB0099640F /* HWThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B64DE325DF61DB0099640F /* HWThrottle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,12 @@
 		640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWThrottleTestVC.m; sourceTree = "<group>"; };
 		6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutHelper.m"; sourceTree = "<group>"; };
 		6406657D25E0F4A600D50C24 /* UIView+LayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutHelper.h"; sourceTree = "<group>"; };
+		6406658525E4DB0300D50C24 /* HWThrottle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWThrottle.h; sourceTree = "<group>"; };
+		6406658625E4DB0300D50C24 /* HWThrottle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWThrottle.m; sourceTree = "<group>"; };
+		6406658825E4DB0300D50C24 /* HWDebounce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDebounce.m; sourceTree = "<group>"; };
+		6406658925E4DB0300D50C24 /* HWDebounce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDebounce.h; sourceTree = "<group>"; };
+		6406658D25E4FC0200D50C24 /* HWDebounceTestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HWDebounceTestVC.h; sourceTree = "<group>"; };
+		6406658E25E4FC0200D50C24 /* HWDebounceTestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWDebounceTestVC.m; sourceTree = "<group>"; };
 		64B64DC525DF61C30099640F /* HWThrottle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWThrottle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B64DC825DF61C30099640F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		64B64DC925DF61C30099640F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -36,8 +44,6 @@
 		64B64DD725DF61C30099640F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64B64DD925DF61C30099640F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64B64DDA25DF61C30099640F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		64B64DE225DF61DB0099640F /* HWThrottle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWThrottle.h; sourceTree = "<group>"; };
-		64B64DE325DF61DB0099640F /* HWThrottle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWThrottle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6406658425E4DB0300D50C24 /* Throttle */ = {
+			isa = PBXGroup;
+			children = (
+				6406658525E4DB0300D50C24 /* HWThrottle.h */,
+				6406658625E4DB0300D50C24 /* HWThrottle.m */,
+			);
+			path = Throttle;
+			sourceTree = "<group>";
+		};
+		6406658725E4DB0300D50C24 /* Debounce */ = {
+			isa = PBXGroup;
+			children = (
+				6406658925E4DB0300D50C24 /* HWDebounce.h */,
+				6406658825E4DB0300D50C24 /* HWDebounce.m */,
+			);
+			path = Debounce;
+			sourceTree = "<group>";
+		};
 		64B64DBC25DF61C30099640F = {
 			isa = PBXGroup;
 			children = (
@@ -70,10 +94,10 @@
 		64B64DC725DF61C30099640F /* HWThrottle */ = {
 			isa = PBXGroup;
 			children = (
+				6406658725E4DB0300D50C24 /* Debounce */,
+				6406658425E4DB0300D50C24 /* Throttle */,
 				6406657D25E0F4A600D50C24 /* UIView+LayoutHelper.h */,
 				6406657C25E0F4A600D50C24 /* UIView+LayoutHelper.m */,
-				64B64DE225DF61DB0099640F /* HWThrottle.h */,
-				64B64DE325DF61DB0099640F /* HWThrottle.m */,
 				64B64DC825DF61C30099640F /* AppDelegate.h */,
 				64B64DC925DF61C30099640F /* AppDelegate.m */,
 				64B64DCB25DF61C30099640F /* SceneDelegate.h */,
@@ -87,6 +111,8 @@
 				64B64DDA25DF61C30099640F /* main.m */,
 				640664BC25E0AC9900D50C24 /* HWThrottleTestVC.h */,
 				640664BD25E0AC9A00D50C24 /* HWThrottleTestVC.m */,
+				6406658D25E4FC0200D50C24 /* HWDebounceTestVC.h */,
+				6406658E25E4FC0200D50C24 /* HWDebounceTestVC.m */,
 			);
 			path = HWThrottle;
 			sourceTree = "<group>";
@@ -160,13 +186,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6406658F25E4FC0200D50C24 /* HWDebounceTestVC.m in Sources */,
 				64B64DD025DF61C30099640F /* ViewController.m in Sources */,
 				640664BE25E0AC9A00D50C24 /* HWThrottleTestVC.m in Sources */,
 				64B64DCA25DF61C30099640F /* AppDelegate.m in Sources */,
+				6406658B25E4DB0300D50C24 /* HWDebounce.m in Sources */,
 				64B64DDB25DF61C30099640F /* main.m in Sources */,
+				6406658A25E4DB0300D50C24 /* HWThrottle.m in Sources */,
 				64B64DCD25DF61C30099640F /* SceneDelegate.m in Sources */,
 				6406657E25E0F4A600D50C24 /* UIView+LayoutHelper.m in Sources */,
-				64B64DE425DF61DB0099640F /* HWThrottle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

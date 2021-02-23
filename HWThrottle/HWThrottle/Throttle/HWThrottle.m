@@ -18,29 +18,42 @@
 
 #pragma mark - life cycle
 
+- (instancetype)initWithInterval:(NSTimeInterval)interval
+                       taskBlock:(HWThrottleTaskBlock)taskBlock {
+    return [self initWithInterval:interval
+                          onQueue:dispatch_get_main_queue()
+                        taskBlock:taskBlock];
+}
+
+- (instancetype)initWithInterval:(NSTimeInterval)interval
+                         onQueue:(dispatch_queue_t)queue
+                       taskBlock:(HWThrottleTaskBlock)taskBlock {
+    return [self initWithThrottleMode:HWThrottleModeLeading
+                             interval:interval
+                              onQueue:queue
+                            taskBlock:taskBlock];
+}
+
 - (instancetype)initWithThrottleMode:(HWThrottleMode)throttleMode
                             interval:(NSTimeInterval)interval
                              onQueue:(dispatch_queue_t)queue
                            taskBlock:(HWThrottleTaskBlock)taskBlock {
-    NSAssert(interval > 0, @"interval must be greater than zero");
+    if (interval < 0) {
+        interval = 0.1;
+    }
     if (!queue) {
         queue = dispatch_get_main_queue();
     }
+    
     switch (throttleMode) {
-        case HWThrottleModeFirstly: {
-            self = [[HWThrottleFirstLy alloc] initWithInterval:interval
+        case HWThrottleModeLeading: {
+            self = [[HWThrottleLeading alloc] initWithInterval:interval
                                                        onQueue:queue
                                                      taskBlock:taskBlock];
             break;
         }
-        case HWThrottleModeLast: {
-            self = [[HWThrottleLast alloc] initWithInterval:interval
-                                                    onQueue:queue
-                                                  taskBlock:taskBlock];
-            break;
-        }
-        case HWThrottleModeDebounce: {
-            self = [[HWThrottleDebounce alloc] initWithInterval:interval
+        case HWThrottleModeTrailing: {
+            self = [[HWThrottleTrailing alloc] initWithInterval:interval
                                                         onQueue:queue
                                                       taskBlock:taskBlock];
             break;
@@ -61,9 +74,9 @@
 
 @end
 
-#pragma mark - HWThrottleFirstLy
+#pragma mark - HWThrottleLeading
 
-@interface HWThrottleFirstLy()
+@interface HWThrottleLeading()
 
 @property (nonatomic, assign) NSTimeInterval interval;
 @property (nonatomic, copy) HWThrottleTaskBlock taskBlock;
@@ -72,7 +85,7 @@
 
 @end
 
-@implementation HWThrottleFirstLy
+@implementation HWThrottleLeading
 
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                          onQueue:(dispatch_queue_t)queue
@@ -111,9 +124,9 @@
 
 @end
 
-#pragma mark - HWThrottleLast
+#pragma mark - HWThrottleTrailing
 
-@interface HWThrottleLast()
+@interface HWThrottleTrailing()
 
 @property (nonatomic, assign) NSTimeInterval interval;
 @property (nonatomic, copy) HWThrottleTaskBlock taskBlock;
@@ -123,7 +136,7 @@
 
 @end
 
-@implementation HWThrottleLast
+@implementation HWThrottleTrailing
 
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                          onQueue:(dispatch_queue_t)queue
@@ -165,52 +178,6 @@
 
 - (void)invalidate {
     self.taskBlock = nil;
-}
-
-@end
-
-#pragma mark - HWThrottleDebounce
-
-@interface HWThrottleDebounce()
-
-@property (nonatomic, assign) NSTimeInterval interval;
-@property (nonatomic, copy) HWThrottleTaskBlock taskBlock;
-@property (nonatomic, strong) dispatch_queue_t queue;
-@property (nonatomic, assign) BOOL isCanceled;
-@property (nonatomic, strong) dispatch_block_t block;
-
-@end
-
-@implementation HWThrottleDebounce
-
-- (instancetype)initWithInterval:(NSTimeInterval)interval
-                         onQueue:(dispatch_queue_t)queue
-                       taskBlock:(HWThrottleTaskBlock)taskBlock {
-    self = [super init];
-    if (self) {
-        _interval = interval;
-        _taskBlock = taskBlock;
-        _queue = queue;
-    }
-    return self;
-}
-
-- (void)call {
-    if (self.block) {
-        dispatch_block_cancel(self.block);
-    }
-    __weak typeof(self)weakSelf = self;
-    self.block = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, ^{
-        if (weakSelf.taskBlock) {
-            weakSelf.taskBlock();
-        }
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.interval * NSEC_PER_SEC)), self.queue, self.block);
-}
-
-- (void)invalidate {
-    self.taskBlock = nil;
-    self.block = nil;
 }
 
 @end

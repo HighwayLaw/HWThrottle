@@ -1,35 +1,33 @@
 //
-//  HWThrottleTestVC.m
+//  HWDebounceTestVC.m
 //  HWThrottle
 //
-//  Created by highwayLiu on 2021/2/20.
+//  Created by highwayLiu on 2021/2/23.
 //
 
-#import "HWThrottleTestVC.h"
+#import "HWDebounceTestVC.h"
 #import "UIView+LayoutHelper.h"
-#import "HWThrottle.h"
+#import "HWDebounce.h"
 
-@interface HWThrottleTestVC ()
+@interface HWDebounceTestVC ()
 
 @property (nonatomic, strong) UIButton *testButton;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *selectModeButton;
 @property (nonatomic, strong) UILabel *selectLabel;
 @property (nonatomic, strong) UILabel *showLabel;
-@property (nonatomic, strong) HWThrottle *testThrottler;
-@property (nonatomic, assign) HWThrottleMode selectedMode;
+@property (nonatomic, strong) HWDebounce *testDebouncer;
+@property (nonatomic, assign) HWDebounceMode selectedMode;
 @property (nonatomic, assign) NSUInteger clickCount;
 @property (nonatomic, assign) NSUInteger callCount;
 
 @end
 
-@implementation HWThrottleTestVC
-
-#pragma mark - life cycle
+@implementation HWDebounceTestVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.selectedMode = HWThrottleModeLeading;
+    self.selectedMode = HWDebounceModeTrailing;
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.testButton];
     [self.view addSubview:self.backButton];
@@ -50,7 +48,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.testThrottler invalidate];
+    [self.testDebouncer invalidate];
 }
 
 - (void)dealloc {
@@ -59,19 +57,19 @@
 
 #pragma mark - private methods
 
-- (void)testThrottle {
-    if (!self.testThrottler) {
-        self.testThrottler = [[HWThrottle alloc] initWithThrottleMode:self.selectedMode
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
+- (void)testDebounce {
+    if (!self.testDebouncer) {
+        self.testDebouncer = [[HWDebounce alloc] initWithDebounceMode:self.selectedMode
+                                                             interval:1
+                                                              onQueue:dispatch_get_main_queue()
+                                                            taskBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.callCount++;
                 [self refreshCountLabel];
             });
         }];
     }
-    [self.testThrottler call];
+    [self.testDebouncer call];
     
     self.clickCount++;
     [self refreshCountLabel];
@@ -92,11 +90,11 @@
         self.callCount = 0;
         [self refreshCountLabel];
         
-        [self.testThrottler invalidate];
-        self.testThrottler = [[HWThrottle alloc] initWithThrottleMode:self.selectedMode
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
+        [self.testDebouncer invalidate];
+        self.testDebouncer = [[HWDebounce alloc] initWithDebounceMode:self.selectedMode
+                                                             interval:1
+                                                              onQueue:dispatch_get_main_queue()
+                                                            taskBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.callCount++;
                 [self refreshCountLabel];
@@ -104,10 +102,10 @@
         }];
     };
     
-    [alertVC addAction:[UIAlertAction actionWithTitle:[self nameForMode:HWThrottleModeLeading]
+    [alertVC addAction:[UIAlertAction actionWithTitle:[self nameForMode:HWDebounceModeTrailing]
                                                 style:UIAlertActionStyleDefault
                                               handler:block]];
-    [alertVC addAction:[UIAlertAction actionWithTitle:[self nameForMode:HWThrottleModeTrailing]
+    [alertVC addAction:[UIAlertAction actionWithTitle:[self nameForMode:HWDebounceModeLeading]
                                                 style:UIAlertActionStyleDefault
                                               handler:block]];
     [alertVC addAction:[UIAlertAction actionWithTitle:@"Cancel"
@@ -117,15 +115,15 @@
     [self presentViewController:alertVC animated:YES completion:nil];
 }
 
-- (NSString *)nameForMode:(HWThrottleMode)mode {
+- (NSString *)nameForMode:(HWDebounceMode)mode {
     NSString *name = nil;
     switch (mode) {
-        case HWThrottleModeLeading:
-            name = @"Leading";
+        case HWDebounceModeTrailing:
+            name = @"Trailing";
             break;
             
-        case HWThrottleModeTrailing:
-            name = @"Trailing";
+        case HWDebounceModeLeading:
+            name = @"Leading";
             break;
     }
     return name;
@@ -151,7 +149,7 @@
         _testButton.titleLabel.font = [UIFont systemFontOfSize:17];
         _testButton.clipsToBounds = YES;
         _testButton.layer.cornerRadius = 10;
-        [_testButton addTarget:self action:@selector(testThrottle) forControlEvents:UIControlEventTouchUpInside];
+        [_testButton addTarget:self action:@selector(testDebounce) forControlEvents:UIControlEventTouchUpInside];
     }
     return _testButton;
 }
@@ -207,5 +205,6 @@
     }
     return _showLabel;
 }
+
 
 @end
