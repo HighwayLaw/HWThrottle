@@ -12,44 +12,44 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - public class
 
 typedef NS_ENUM(NSUInteger, HWThrottleMode) {
-    HWThrottleModeLeading,          //执行最靠前发送的消息
-    HWThrottleModeTrailing,         //执行最靠后发送的消息
+    HWThrottleModeLeading,          //invoking on the leading edge of the timeout
+    HWThrottleModeTrailing,         //invoking on the trailing edge of the timeout
 };
 
 typedef void(^HWThrottleTaskBlock)(void);
 
 @interface HWThrottle : NSObject
 
-/// 初始化一个throttle对象，节流模式默认为HWThrottleModeLeading，执行队列默认主队列，注意节流是针对同一HWThrottle对象的，不同的HWThrottle对象之间互不干扰
-/// @param interval 节流时间间隔，单位 s
-/// @param taskBlock 要节流的任务block
+/// Initialize a throttle object, the throttle mode is the default HWThrottleModeLeading, the execution queue defaults to the main queue. Note that throttle is for the same HWThrottle object, and different HWThrottle objects do not interfere with each other
+/// @param interval throttle time interval, unit second
+/// @param taskBlock the task to be throttled
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                        taskBlock:(HWThrottleTaskBlock)taskBlock;
 
-/// 初始化一个throttle对象，节流模式默认为HWThrottleModeLeading，注意节流是针对同一HWThrottle对象的，不同的HWThrottle对象之间互不干扰
-/// @param interval 节流时间间隔，单位 s
-/// @param queue 执行任务的队列，不传默认主队列
-/// @param taskBlock 要节流的任务block
+/// Initialize a throttle object, the throttle mode is the default HWThrottleModeLeading. Note that throttle is for the same HWThrottle object, and different HWThrottle objects do not interfere with each other
+/// @param interval throttle time interval, unit second
+/// @param queue execution queue, defaults the main queue
+/// @param taskBlock the task to be throttled
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                          onQueue:(dispatch_queue_t)queue
                        taskBlock:(HWThrottleTaskBlock)taskBlock;
 
-/// 初始化一个throttle对象，注意节流是针对同一HWThrottle对象的，不同的HWThrottle对象之间互不干扰
-/// @param throttleMode 选定节流模式
-/// @param interval 节流时间间隔，单位 s
-/// @param queue 执行任务的队列，不传默认主队列
-/// @param taskBlock 要节流的任务block
+/// Initialize a debounce object. Note that debounce is for the same HWThrottle object, and different HWThrottle objects do not interfere with each other
+/// @param throttleMode the throttle mode, defaults HWThrottleModeLeading
+/// @param interval throttle time interval, unit second
+/// @param queue execution queue, defaults the main queue
+/// @param taskBlock the task to be throttled
 - (instancetype)initWithThrottleMode:(HWThrottleMode)throttleMode
                             interval:(NSTimeInterval)interval
                              onQueue:(dispatch_queue_t)queue
                            taskBlock:(HWThrottleTaskBlock)taskBlock;
 
 
-/// 节流调用任务
+/// throttling call the task
 - (void)call;
 
 
-/// HWThrottle对象所有者将要释放时，先对HWThrottle对象调用此方法，以防循环引用
+/// When the owner of the HWThrottle object is about to release, call this method on the HWThrottle object first to prevent circular references
 - (void)invalidate;
 
 @end

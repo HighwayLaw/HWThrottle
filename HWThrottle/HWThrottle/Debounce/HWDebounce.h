@@ -12,44 +12,44 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - public class
 
 typedef NS_ENUM(NSUInteger, HWDebounceMode) {
-    HWDebounceModeTrailing,        //执行最靠后发送的消息
-    HWDebounceModeLeading,         //执行最靠前发送的消息
+    HWDebounceModeTrailing,        //invoking on the trailing edge of the timeout
+    HWDebounceModeLeading,         //invoking on the leading edge of the timeout
 };
 
 typedef void(^HWDebounceTaskBlock)(void);
 
 @interface HWDebounce : NSObject
 
-/// 初始化一个debounce对象，防抖模式为默认HWDebounceModeTrailing，执行队列默认主队列，注意防抖是针对同一HWDebounce对象的，不同的HWDebounce对象之间互不干扰
-/// @param interval 防抖时间间隔，单位 s
-/// @param taskBlock 要防抖的任务block
+/// Initialize a debounce object, the debounce mode is the default HWDebounceModeTrailing, the execution queue defaults to the main queue. Note that debounce is for the same HWDebounce object, and different HWDebounce objects do not interfere with each other
+/// @param interval debounce time interval, unit second
+/// @param taskBlock the task to be debounced
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                        taskBlock:(HWDebounceTaskBlock)taskBlock;
 
-/// 初始化一个debounce对象，防抖模式为默认HWDebounceModeTrailing，注意防抖是针对同一HWDebounce对象的，不同的HWDebounce对象之间互不干扰
-/// @param interval 防抖时间间隔，单位 s
-/// @param queue 执行任务的队列，不传默认主队列
-/// @param taskBlock 要防抖的任务block
+/// Initialize a debounce object, the debounce mode is the default HWDebounceModeTrailing. Note that debounce is for the same HWDebounce object, and different HWDebounce objects do not interfere with each other
+/// @param interval debounce time interval, unit second
+/// @param queue execution queue, defaults the main queue
+/// @param taskBlock the task to be debounced
 - (instancetype)initWithInterval:(NSTimeInterval)interval
                          onQueue:(dispatch_queue_t)queue
                        taskBlock:(HWDebounceTaskBlock)taskBlock;
 
-/// 初始化一个debounce对象，注意防抖是针对同一HWDebounce对象的，不同的HWDebounce对象之间互不干扰
-/// @param debounceMode 选定防抖模式
-/// @param interval 防抖时间间隔，单位 s
-/// @param queue 执行任务的队列，不传默认主队列
-/// @param taskBlock 要防抖的任务block
+/// Initialize a debounce object. Note that debounce is for the same HWDebounce object, and different HWDebounce objects do not interfere with each other
+/// @param debounceMode the debounce mode, defaults HWDebounceModeTrailing
+/// @param interval debounce time interval, unit second
+/// @param queue execution queue, defaults the main queue
+/// @param taskBlock the task to be debounced
 - (instancetype)initWithDebounceMode:(HWDebounceMode)debounceMode
                             interval:(NSTimeInterval)interval
                              onQueue:(dispatch_queue_t)queue
                            taskBlock:(HWDebounceTaskBlock)taskBlock;
 
 
-/// 防抖调用任务
+/// debouncing call the task
 - (void)call;
 
 
-/// HWDebounce对象所有者将要释放时，先对HWDebounce对象调用此方法，以防循环引用
+/// When the owner of the HWDebounce object is about to release, call this method on the HWDebounce object first to prevent circular references
 - (void)invalidate;
 
 @end

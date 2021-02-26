@@ -52,6 +52,7 @@
 }
 
 - (void)dealloc {
+    //put breakpoint here to check whether there's a retain cycle here
     NSLog(@"");
 }
 
