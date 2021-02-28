@@ -10,9 +10,9 @@ Throttle本是机械领域的概念，英文解释为：
 
 中文翻译成节流器，用以调节发动机燃料供应的阀门。在计算机领域，同样也引入了Throttle和Debounce概念，这两种技术都可用来降低函数调用频率，相似又有区别。对于连续调用的函数，尤其是触发频率密集、目标函数涉及大量计算时，恰当使用Throttle和Debounce可以有效提升性能及系统稳定性。
 
-对于JS前端开发人员，由于无法控制DOM事件触发频率，在给DOM绑定事件的时候，常常需要进行Throttle或者Debounce来事件调用过于频繁。但是对于部分iOS开发者来说可能对这两个术语有些许陌生，也许你在不经意间已经用到了，只是没想过会有专门的抽象概念。举个常见的例子，对于UITableView，频繁触发reloadData函数可能会引起画面闪动、卡顿，数据源动态变化时甚至会导致崩溃，一些开发者可能会想方设法减少对reload函数的调用，不过对于复杂的UITableView视图可能会显得捉襟见肘，因为reloadData很可能“无处不在”，甚至会被跨文件调用，此时就可以考虑对reloadData函数本身做下降频处理。
+对于JS前端开发人员，由于无法控制DOM事件触发频率，在给DOM绑定事件的时候，常常需要进行Throttle或者Debounce来防止事件调用过于频繁。而对于iOS开发者来说，也许会觉得这两个术语很陌生，不过你很可能在不经意间已经用到了，只是没想过会有专门的抽象概念。举个常见的例子，对于UITableView，频繁触发reloadData函数可能会引起画面闪动、卡顿，数据源动态变化时甚至会导致崩溃，一些开发者可能会想方设法减少对reload函数的调用，不过对于复杂的UITableView视图可能会显得捉襟见肘，因为reloadData很可能“无处不在”，甚至会被跨文件调用，此时就可以考虑对reloadData函数本身做下降频处理。
 
-下面详细解析对比下Throttle和Debounce，先看下二者在JS的Lodash库中的解释：
+下面通过概念定义及示例来详细解析对比下Throttle和Debounce，先看下二者在JS的Lodash库中的解释：
 
 ## Throttle
 >Throttle enforces a maximum number of times a function can be called over time. For example, "execute this function at most once every 100 ms."
