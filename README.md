@@ -1,5 +1,5 @@
 # HWThrottle
-[函数节流（Throttle）和防抖（Debounce）解析及其OC实现](https://www.jianshu.com/p/82b22ee7e753)
+[函数节流（Throttle）和防抖（Debounce）解析及其OC实现](https://juejin.cn/post/6933952291142074376)
 
 ## 使用方法
 按需直接将 HWThrottle和HWDebounce的.h及.m文件拖入工程即可。
