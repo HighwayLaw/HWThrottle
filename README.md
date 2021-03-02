@@ -56,6 +56,7 @@ Throttle本是机械领域的概念，英文解释为：
 
 ### 5） GCD Background Queue
 >Items dispatched to the queue run at background priority; the queue is scheduled for execution after all high priority queues have been scheduled and the system runs items on a thread whose priority is set for background status. Such a thread has the lowest priority and any disk I/O is throttled to minimize the impact on the system.
+
 在dispatch的Background Queue优先级下，系统会自动将磁盘I/O操作进行Throttle，来降低对系统资源的耗费。
 
 ### 6）ASIHttpRequest及AFNetworking
