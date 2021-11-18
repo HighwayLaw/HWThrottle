@@ -60,14 +60,9 @@
 
 - (void)testDebounce {
     if (!self.testDebouncer) {
-        self.testDebouncer = [[HWDebounce alloc] initWithDebounceMode:self.selectedMode
-                                                             interval:1
-                                                              onQueue:dispatch_get_main_queue()
-                                                            taskBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.callCount++;
-                [self refreshCountLabel];
-            });
+        self.testDebouncer = [[HWDebounce alloc] initWithInterval:1 taskBlock:^{
+            self.callCount++;
+            [self refreshCountLabel];
         }];
     }
     [self.testDebouncer call];
@@ -92,14 +87,9 @@
         [self refreshCountLabel];
         
         [self.testDebouncer invalidate];
-        self.testDebouncer = [[HWDebounce alloc] initWithDebounceMode:self.selectedMode
-                                                             interval:1
-                                                              onQueue:dispatch_get_main_queue()
-                                                            taskBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.callCount++;
-                [self refreshCountLabel];
-            });
+        self.testDebouncer = [[HWDebounce alloc] initWithInterval:1 taskBlock:^{
+            self.callCount++;
+            [self refreshCountLabel];
         }];
     };
     

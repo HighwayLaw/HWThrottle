@@ -61,14 +61,9 @@
 
 - (void)testThrottle {
     if (!self.testThrottler) {
-        self.testThrottler = [[HWThrottle alloc] initWithThrottleMode:self.selectedMode
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.callCount++;
-                [self refreshCountLabel];
-            });
+        self.testThrottler = [[HWThrottle alloc] initWithInterval:1 taskBlock:^{
+            self.callCount++;
+            [self refreshCountLabel];
         }];
     }
     [self.testThrottler call];
@@ -93,14 +88,9 @@
         [self refreshCountLabel];
         
         [self.testThrottler invalidate];
-        self.testThrottler = [[HWThrottle alloc] initWithThrottleMode:self.selectedMode
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.callCount++;
-                [self refreshCountLabel];
-            });
+        self.testThrottler = [[HWThrottle alloc] initWithInterval:1 taskBlock:^{
+            self.callCount++;
+            [self refreshCountLabel];
         }];
     };
     
