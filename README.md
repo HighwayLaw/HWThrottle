@@ -107,10 +107,7 @@ Throttle本是机械领域的概念，英文解释为：
 ### 使用示例:
 ```
     if (!self.testThrottler) {
-        self.testThrottler = [[HWThrottle alloc] initWithThrottleMode:HWThrottleModeLeading
-                                                                   interval:1
-                                                                    onQueue:dispatch_get_main_queue()
-                                                                  taskBlock:^{
+        self.testThrottler = [[HWThrottle alloc] initWithInterval:1 taskBlock:^{
            //do some heavy tasks
         }];
     }
@@ -119,8 +116,8 @@ Throttle本是机械领域的概念，英文解释为：
 由于使用到了block，**注意在Throttle或Debounce对象所有者即将释放时，即不再使用block时调用invalidate**，该方法会将持有的task block置空，防止循环引用。如果是在页面中使用Throttle或Debounce对象，可在disappear回调中调用invalidate方法。
 
 ```
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [self.testThrottler invalidate];
 }
 ```
